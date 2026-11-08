@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+.venv/
+data/
+.env
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Environment and secrets
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Databases and generated indexes
+*.db
+*.sqlite
+*.sqlite3
+*.faiss
+*.index
+
+# Temporary files
+*.log
+uploads/
+cloned_repos/

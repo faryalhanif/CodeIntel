@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      CODEINTEL_OLLAMA_URL: http://host.docker.internal:11434
+    volumes: ["codeintel-data:/data"]
+    # Repositories are untrusted input: no extra privileges, read-only root FS.
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+  ui:
+    build: .
+    command: streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
+    ports: ["8501:8501"]
+    environment:
+      CODEINTEL_API_URL: http://api:8000
+    depends_on: [api]
+volumes:
+  codeintel-data:
